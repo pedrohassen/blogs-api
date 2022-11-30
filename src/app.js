@@ -1,7 +1,6 @@
 const express = require('express');
 
 // ...
-// pro commit inicial
 
 const app = express();
 
