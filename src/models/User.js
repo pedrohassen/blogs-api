@@ -1,14 +1,14 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const users = sequelize.define('Users', {
+  const users = sequelize.define('User', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    display_name: DataTypes.STRING,
+    displayName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     image: DataTypes.STRING
@@ -17,5 +17,12 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     underscored: true,
   });
+
+  users.associate = (models) => {
+    users.hasMany(models.BlogPost, {
+      as: 'blog_posts',
+      foreignKey: 'user_id'
+    });
+  };
   return users;
 };

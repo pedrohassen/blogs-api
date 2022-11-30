@@ -1,6 +1,6 @@
 'use strict';
 
-const blog_posts = require("../models/blog_posts");
+const blog_posts = require("../models/BlogPost");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
