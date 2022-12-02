@@ -15,6 +15,7 @@ const loginValidation = async (req, res, next) => {
   if (!user || !checkFields(user, password)) {
     return res.status(400).send({ message: 'Invalid fields' }); 
   }
+  req.user = user;
   next();
 };
 

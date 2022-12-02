@@ -1,29 +1,14 @@
-require('dotenv').config();
-
-const jwt = require('jsonwebtoken');
+const { generateToken } = require('../auth/jwtFunctions');
 const { User } = require('../models');
-
-const secretPassword = process.env.JWT_SECRET || 'suaSenhaSecreta';
-
-const jwtConfig = {
-  algorithm: 'HS256',
-  expiresIn: '30min',
-};
 
 const findUser = async (email) => {
   const user = await User.findOne({ where: { email } });
   return user;
 };
 
-const generateToken = (user, secret, config) => {
-  const token = jwt.sign({ data: user }, secret, config);
-  return token;
-};
-
-const login = async (email) => {
-  const user = await findUser(email);
+const login = async (user) => {
   const { password: _, ...userWithoutPassword } = user;
-  const token = generateToken(userWithoutPassword, secretPassword, jwtConfig);
+  const token = generateToken(userWithoutPassword);
   return token;
 };
 
