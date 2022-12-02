@@ -14,6 +14,16 @@ const generateToken = (user) => {
   return token;
 };
 
+const checkToken = (authorization) => {
+  try {
+    const payload = jwt.verify(authorization, secretPassword);
+    return payload;
+  } catch (error) {
+    return { hasError: true, error };
+  }
+};
+
 module.exports = {
   generateToken,
+  checkToken,
 };
