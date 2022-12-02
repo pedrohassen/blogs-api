@@ -1,7 +1,7 @@
 require('dotenv').config();
 const app = require('./app');
 const { login } = require('./controllers/login.controller');
-const { createUser, getAllUsers } = require('./controllers/user.controller');
+const { createUser, getAllUsers, getUserById } = require('./controllers/user.controller');
 const { loginValidation } = require('./middlewares/loginValidation');
 const { tokenValidation } = require('./middlewares/tokenValidation');
 const {
@@ -27,5 +27,7 @@ passwordValidation,
 createUser);
 
 app.get('/user', tokenValidation, getAllUsers);
+
+app.get('/user/:id', tokenValidation, getUserById);
 
 app.listen(port, () => console.log('ouvindo porta', port));

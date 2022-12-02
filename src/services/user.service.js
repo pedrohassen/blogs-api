@@ -23,7 +23,15 @@ const getAllUsers = async () => {
   return usersWithoutPassword;
 };
 
+const getUserById = async (id) => {
+  const user = await User.findByPk(+id);
+  if (!user) return user;
+  const { password: _, ...userWithoutPassword } = user.dataValues;
+  return userWithoutPassword;
+};
+
 module.exports = {
   createUser,
   getAllUsers,
+  getUserById,
 };
