@@ -1,8 +1,15 @@
 require('dotenv').config();
 const app = require('./app');
-const { createCategory } = require('./controllers/category.controller');
+const {
+  createCategory,
+  getAllCategories,
+} = require('./controllers/category.controller');
 const { login } = require('./controllers/login.controller');
-const { createUser, getAllUsers, getUserById } = require('./controllers/user.controller');
+const {
+  createUser,
+  getAllUsers,
+  getUserById,
+} = require('./controllers/user.controller');
 const { nameValidation } = require('./middlewares/categoryValidation');
 const { loginValidation } = require('./middlewares/loginValidation');
 const { tokenValidation } = require('./middlewares/tokenValidation');
@@ -33,5 +40,7 @@ app.get('/user', tokenValidation, getAllUsers);
 app.get('/user/:id', tokenValidation, getUserById);
 
 app.post('/categories', tokenValidation, nameValidation, createCategory);
+
+app.get('/categories', tokenValidation, getAllCategories);
 
 app.listen(port, () => console.log('ouvindo porta', port));
