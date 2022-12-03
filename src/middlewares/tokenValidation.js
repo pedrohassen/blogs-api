@@ -13,6 +13,7 @@ const tokenValidation = (req, res, next) => {
       message: 'Expired or invalid token',
     });
   }
+  req.user = payload.data.dataValues;
   next();
 };
 
