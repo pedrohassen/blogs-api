@@ -11,6 +11,7 @@ const {
   getPostById,
   changePostById,
   deletePost,
+  searchByTerm,
 } = require('./controllers/post.controller');
 const {
   createUser,
@@ -39,6 +40,8 @@ const port = process.env.API_PORT || 3000;
 app.get('/', (_request, response) => {
   response.send();
 });
+
+app.get('/post/search', tokenValidation, searchByTerm);
 
 app.post('/login', loginValidation, login);
 
