@@ -5,7 +5,7 @@ const {
   getAllCategories,
 } = require('./controllers/category.controller');
 const { login } = require('./controllers/login.controller');
-const { createPost } = require('./controllers/post.controller');
+const { createPost, getPosts } = require('./controllers/post.controller');
 const {
   createUser,
   getAllUsers,
@@ -46,5 +46,7 @@ app.post('/categories', tokenValidation, nameValidation, createCategory);
 app.get('/categories', tokenValidation, getAllCategories);
 
 app.post('/post', tokenValidation, postFieldsValidation, createPost);
+
+app.get('/post', tokenValidation, getPosts);
 
 app.listen(port, () => console.log('ouvindo porta', port));
