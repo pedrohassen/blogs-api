@@ -16,6 +16,7 @@ const {
   createUser,
   getAllUsers,
   getUserById,
+  deleteUser,
 } = require('./controllers/user.controller');
 const { nameValidation } = require('./middlewares/categoryValidation');
 const { loginValidation } = require('./middlewares/loginValidation');
@@ -64,5 +65,7 @@ app.get('/post/:id', tokenValidation, getPostById);
 app.put('/post/:id', tokenValidation, updatedPostFieldsValidation, changePostById);
 
 app.delete('/post/:id', tokenValidation, deletePostValidation, deletePost);
+
+app.delete('/user/me', tokenValidation, deleteUser);
 
 app.listen(port, () => console.log('ouvindo porta', port));
