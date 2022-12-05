@@ -5,7 +5,13 @@ const {
   getAllCategories,
 } = require('./controllers/category.controller');
 const { login } = require('./controllers/login.controller');
-const { createPost, getPosts, getPostById, changePostById } = require('./controllers/post.controller');
+const {
+  createPost,
+  getPosts,
+  getPostById,
+  changePostById,
+  deletePost,
+} = require('./controllers/post.controller');
 const {
   createUser,
   getAllUsers,
@@ -13,7 +19,11 @@ const {
 } = require('./controllers/user.controller');
 const { nameValidation } = require('./middlewares/categoryValidation');
 const { loginValidation } = require('./middlewares/loginValidation');
-const { postFieldsValidation, updatedPostFieldsValidation } = require('./middlewares/postValidation');
+const {
+  postFieldsValidation,
+  updatedPostFieldsValidation,
+  deletePostValidation,
+} = require('./middlewares/postValidation');
 const { tokenValidation } = require('./middlewares/tokenValidation');
 const {
   displayNameValidation,
@@ -52,5 +62,7 @@ app.get('/post', tokenValidation, getPosts);
 app.get('/post/:id', tokenValidation, getPostById);
 
 app.put('/post/:id', tokenValidation, updatedPostFieldsValidation, changePostById);
+
+app.delete('/post/:id', tokenValidation, deletePostValidation, deletePost);
 
 app.listen(port, () => console.log('ouvindo porta', port));

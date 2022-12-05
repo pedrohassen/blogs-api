@@ -23,11 +23,20 @@ const updatedPostFieldsValidation = async (req, res, next) => {
       .json({ message: 'Some required fields are missing' }); 
   }
   const post = await postService.getPostById(id);
-  if (post.id !== user.id) return res.status(401).json({ message: 'Unauthorized user' });
+  if (post.user.id !== user.id) return res.status(401).json({ message: 'Unauthorized user' });
+  next();
+};
+
+const deletePostValidation = async (req, res, next) => {
+  const { params: { id }, user } = req;
+  const post = await postService.getPostById(id);
+  if (!post) return res.status(404).json({ message: 'Post does not exist' });
+  if (post.user.id !== user.id) return res.status(401).json({ message: 'Unauthorized user' });
   next();
 };
 
 module.exports = {
   postFieldsValidation,
   updatedPostFieldsValidation,
+  deletePostValidation,
 };
