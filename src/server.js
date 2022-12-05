@@ -5,7 +5,7 @@ const {
   getAllCategories,
 } = require('./controllers/category.controller');
 const { login } = require('./controllers/login.controller');
-const { createPost, getPosts, getPostById } = require('./controllers/post.controller');
+const { createPost, getPosts, getPostById, changePostById } = require('./controllers/post.controller');
 const {
   createUser,
   getAllUsers,
@@ -13,7 +13,7 @@ const {
 } = require('./controllers/user.controller');
 const { nameValidation } = require('./middlewares/categoryValidation');
 const { loginValidation } = require('./middlewares/loginValidation');
-const { postFieldsValidation } = require('./middlewares/postValidation');
+const { postFieldsValidation, updatedPostFieldsValidation } = require('./middlewares/postValidation');
 const { tokenValidation } = require('./middlewares/tokenValidation');
 const {
   displayNameValidation,
@@ -50,5 +50,7 @@ app.post('/post', tokenValidation, postFieldsValidation, createPost);
 app.get('/post', tokenValidation, getPosts);
 
 app.get('/post/:id', tokenValidation, getPostById);
+
+app.put('/post/:id', tokenValidation, updatedPostFieldsValidation, changePostById);
 
 app.listen(port, () => console.log('ouvindo porta', port));
